@@ -11,6 +11,6 @@ export default {
     jwt_refresh_token_secret:process.env.JWT_REFRESH_TOKEN_SECRET!,
     jwt_access_token_expiredIn:process.env.JWT_ACCESS_TOKEN_EXPIRATION!,
     jwt_refresh_token_expiredIn:process.env.JWT_REFRESH_TOKEN_EXPIRATION!,
-    bcrypt_salt_rounds:process.env.BCRYPT_SALT_ROUNDS
+    bcrypt_salt_rounds:process.env.BCRYPT_SALT_ROUNDS!
 
 }

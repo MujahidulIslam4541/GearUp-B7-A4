@@ -6,7 +6,6 @@ export interface userCreateInterface {
     email: string,
     password: string,
     role: UserRole,
-    status: UserStatus
 }
 
 export interface userLoginInterface {

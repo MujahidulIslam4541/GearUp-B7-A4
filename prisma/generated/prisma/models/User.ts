@@ -276,7 +276,7 @@ export type UserCreateInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   gearItems?: Prisma.GearItemCreateNestedManyWithoutProviderInput
@@ -290,7 +290,7 @@ export type UserUncheckedCreateInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   gearItems?: Prisma.GearItemUncheckedCreateNestedManyWithoutProviderInput
@@ -332,7 +332,7 @@ export type UserCreateManyInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -453,7 +453,7 @@ export type UserCreateWithoutGearItemsInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   rentalOrders?: Prisma.RentalOrderCreateNestedManyWithoutCustomerInput
@@ -466,7 +466,7 @@ export type UserUncheckedCreateWithoutGearItemsInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   rentalOrders?: Prisma.RentalOrderUncheckedCreateNestedManyWithoutCustomerInput
@@ -521,7 +521,7 @@ export type UserCreateWithoutRentalOrdersInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   gearItems?: Prisma.GearItemCreateNestedManyWithoutProviderInput
@@ -534,7 +534,7 @@ export type UserUncheckedCreateWithoutRentalOrdersInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   gearItems?: Prisma.GearItemUncheckedCreateNestedManyWithoutProviderInput
@@ -589,7 +589,7 @@ export type UserCreateWithoutReviewsInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   gearItems?: Prisma.GearItemCreateNestedManyWithoutProviderInput
@@ -602,7 +602,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   email: string
   password: string
   role?: $Enums.UserRole
-  status: $Enums.UserStatus
+  status?: $Enums.UserStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   gearItems?: Prisma.GearItemUncheckedCreateNestedManyWithoutProviderInput
