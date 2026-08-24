@@ -15,5 +15,11 @@ model GearItem {
     categoryId String
     category   Category @relation(fields: [categoryId], references: [id])
 
+    // foreign key relation with RentalOrder
+    rentalOrders RentalOrder[]
+
+    // indexes
+    @@index([providerId])
+    @@index([categoryId])
     @@map("gear_items")
 }

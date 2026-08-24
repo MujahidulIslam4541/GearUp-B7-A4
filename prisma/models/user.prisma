@@ -10,18 +10,9 @@ model User {
 
     // relation others table
     gearItems GearItem[]
+    rentalOrders RentalOrder[]
 
 
     @@map("users")
 }
 
-enum UserRole {
-    USER
-    PROVIDER
-    ADMIN
-}
-
-enum UserStatus {
-    ACTIVE
-    SUSPENDED
-}

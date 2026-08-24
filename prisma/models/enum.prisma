@@ -1,0 +1,20 @@
+enum RentalStatus {
+    PLACED
+    CONFIRMED
+    PAID
+    PICKED_UP
+    RETURNED
+    CANCELLED
+}
+
+
+enum UserRole {
+    USER
+    PROVIDER
+    ADMIN
+}
+
+enum UserStatus {
+    ACTIVE
+    SUSPENDED
+}
