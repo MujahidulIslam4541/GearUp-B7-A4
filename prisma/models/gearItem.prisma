@@ -1,0 +1,19 @@
+model GearItem {
+    id          String   @id @default(uuid())
+    name        String   @db.VarChar(255)
+    description String?  @db.Text
+    price       Decimal  @db.Decimal(10, 2)
+    imageUrl    String?  @db.VarChar(255)
+    brand       String?  @db.VarChar(255)
+    quantity    Int      @default(0)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    // relation others table
+    providerId String
+    provider   User     @relation(fields: [providerId], references: [id])
+    categoryId String
+    category   Category @relation(fields: [categoryId], references: [id])
+
+    @@map("gear_items")
+}
