@@ -14,8 +14,8 @@ async function main() {
         });
     } catch (error) {
         console.log("server error ", error);
-        // await prisma.$disconnect()
-        // process.exit(1);
+        await prisma.$disconnect()
+        process.exit(1);
     }
 }
 main();

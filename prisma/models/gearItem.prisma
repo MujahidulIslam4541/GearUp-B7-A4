@@ -17,6 +17,7 @@ model GearItem {
 
     // foreign key relation with RentalOrder
     rentalOrders RentalOrder[]
+    reviews      Review[]
 
     // indexes
     @@index([providerId])

@@ -11,6 +11,7 @@ model User {
     // relation others table
     gearItems GearItem[]
     rentalOrders RentalOrder[]
+    reviews Review[]
 
 
     @@map("users")
