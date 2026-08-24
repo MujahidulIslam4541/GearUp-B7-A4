@@ -1,13 +1,16 @@
 import app from "./app";
+import config from "./config";
+import { prisma } from "./lib";
 
 
-const port = 5000
 
 async function main() {
     try {
+        await prisma.$connect();
+        console.log("connected prisma orm");
 
-        app.listen(port, () => {
-            console.log(`server is running on ${port}`);
+        app.listen(config.port, () => {
+            console.log(`server is running on ${config.port}`);
         });
     } catch (error) {
         console.log("server error ", error);
