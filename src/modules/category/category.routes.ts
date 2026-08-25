@@ -13,4 +13,6 @@ router.get('/', categoryController.getAllCategory)
 
 router.put("/:id", authMiddlewares(UserRole.ADMIN), categoryController.updateCategory)
 
+router.delete('/:id', authMiddlewares(UserRole.ADMIN), categoryController.deleteCategory)
+
 export const categoryRoutes = router

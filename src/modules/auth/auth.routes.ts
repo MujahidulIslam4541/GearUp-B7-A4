@@ -9,6 +9,6 @@ const router = Router()
 
 router.post("/register", validateRequest(createUserValidationSchema), authController.createUser)
 router.post("/login", validateRequest(loginValidationSchema), authController.signInUser)
-router.get("/me", authMiddlewares(UserRole.USER), authController.myProfile)
+router.get("/me", authMiddlewares(UserRole.USER, UserRole.PROVIDER, UserRole.ADMIN), authController.myProfile)
 
 export const authRoutes = router;
