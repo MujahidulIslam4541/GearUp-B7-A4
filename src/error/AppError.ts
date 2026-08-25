@@ -1,12 +1,10 @@
-class CustomError extends Error {
+export class AppError extends Error {
     statusCode: number;
 
     constructor(statusCode: number, message: string) {
         super(message);
         this.statusCode = statusCode;
+        Object.setPrototypeOf(this, AppError.prototype);
+        Error.captureStackTrace(this, this.constructor);
     }
 }
-
-export const AppError = (statusCode: number, message: string) => {
-    return new CustomError(statusCode, message);
-};

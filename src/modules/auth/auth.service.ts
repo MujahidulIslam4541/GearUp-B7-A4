@@ -1,3 +1,4 @@
+import type { UserRole } from "../../../prisma/generated/prisma/enums";
 import config from "../../config";
 import { AppError } from "../../error/AppError";
 import { prisma } from "../../lib";
@@ -15,7 +16,7 @@ const createdUserIntoDB = async (payload: userCreateInterface) => {
     })
 
     if (isExisting) {
-        throw AppError(HttpStatus.BAD_REQUEST, "User already exist.please login now")
+        throw new AppError(HttpStatus.BAD_REQUEST, "User already exist.please login now")
     }
 
 
@@ -26,7 +27,7 @@ const createdUserIntoDB = async (payload: userCreateInterface) => {
             name: name,
             email: email,
             password: hashPassword,
-            role: role
+            role: role.toUpperCase() as UserRole,
         }, omit: {
             password: true
         }

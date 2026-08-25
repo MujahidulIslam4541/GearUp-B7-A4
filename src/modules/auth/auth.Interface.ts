@@ -1,6 +1,8 @@
 
-import type { UserRole, UserStatus } from "../../../prisma/generated/prisma/enums";
+import type { UserRole } from "../../../prisma/generated/prisma/enums";
 
+
+export type CreateUserRole = Exclude<UserRole, "ADMIN">;
 export interface userCreateInterface {
     name: string,
     email: string,
