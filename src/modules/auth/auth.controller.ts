@@ -46,9 +46,9 @@ const signInUser = catchAsync(async (req: Request, res: Response, next: NextFunc
 })
 
 const myProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    // const userId=req.user?.id;
+    const userId=req.user?.id;
 
-    const result = await authService.getMyProfile("3")
+    const result = await authService.getMyProfile(userId as string)
     sendResponse(res, {
         success: true,
         statusCode: HttpStatus.OK,
