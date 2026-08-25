@@ -5,7 +5,7 @@ import HttpStatus from "http-status";
 import { categoriesService } from "./category.service";
 
 const createCategory = catchAsync(async (req: Request, res: Response) => {
-    const {name} = req.body;
+    const { name } = req.body;
     const result = await categoriesService.createCategory(name)
 
     sendResponse(res, {
@@ -29,5 +29,19 @@ const getAllCategory = catchAsync(async (req, res) => {
     })
 })
 
+const updateCategory = catchAsync(async (req: Request, res: Response) => {
+    const categoryId = req.params.id;
+    const { name } = req.body;
 
-export const categoryController = { createCategory, getAllCategory }
+    const result = await categoriesService.updateCategory(categoryId as string, name)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: "category updated successfully",
+        data: result
+    })
+})
+
+
+export const categoryController = { createCategory, getAllCategory, updateCategory }
