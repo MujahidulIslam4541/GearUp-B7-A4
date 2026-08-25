@@ -83,8 +83,8 @@ const getMyProfile = async (userId: string) => {
         where: {
             id: userId
         },
-        omit:{
-            password:true
+        omit: {
+            password: true
         }
     })
 
@@ -97,4 +97,3 @@ const getMyProfile = async (userId: string) => {
 }
 
 export const authService = { createdUserIntoDB, signInUser, getMyProfile }
-

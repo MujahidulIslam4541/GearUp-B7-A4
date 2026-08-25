@@ -1,0 +1,22 @@
+import { catchAsync } from "../../utils/catchAsync";
+import type { Request, Response, NextFunction } from "express";
+import { sendResponse } from "../../utils/sendResponse";
+import HttpStatus from "http-status";
+import { gearService } from "./gear.service";
+
+
+
+const getAllGear = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+
+    const result = await gearService.getAllGearInDB()
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: "all gear retrieve success",
+        data: result
+    })
+
+})
+
+export const gearController = { getAllGear }

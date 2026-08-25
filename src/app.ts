@@ -3,6 +3,7 @@ import type { Application, Request, Response } from "express";
 import express from "express";
 import cors from "cors";
 import config from "./config";
+import { gearRoutes } from "./modules/gear/gear.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
 
 
@@ -25,6 +26,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/auth", authRoutes)
+app.use("/api/gear", gearRoutes)
 
 
 export default app;
