@@ -5,6 +5,7 @@ import cors from "cors";
 import config from "./config";
 import { gearRoutes } from "./modules/gear/gear.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
+import { categoryRoutes } from "./modules/category/category.routes";
 
 
 
@@ -27,6 +28,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/auth", authRoutes)
 app.use("/api/gear", gearRoutes)
+app.use("/api/category",categoryRoutes)
 
 
 export default app;

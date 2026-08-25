@@ -3,4 +3,10 @@ const getAllGearInDB = async () => {
 
 }
 
-export const gearService = { getAllGearInDB }
+const getSingleGearInDB = async (gearId: string) => {
+
+}
+
+
+
+export const gearService = { getAllGearInDB, getSingleGearInDB, }
