@@ -5,6 +5,15 @@ import HttpStatus from "http-status";
 import { categoriesService } from "./category.service";
 
 const createCategory = catchAsync(async (req: Request, res: Response) => {
+    const {name} = req.body;
+    const result = await categoriesService.createCategory(name)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.CREATED,
+        message: "created category",
+        data: result
+    })
 
 })
 
@@ -21,4 +30,4 @@ const getAllCategory = catchAsync(async (req, res) => {
 })
 
 
-export const categoryController = { createCategory ,getAllCategory}
+export const categoryController = { createCategory, getAllCategory }
