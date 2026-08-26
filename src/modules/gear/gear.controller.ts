@@ -21,14 +21,16 @@ const createGear = catchAsync(async (req: Request, res: Response) => {
 
 
 const getAllGear = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { categoryId, brand, maxPrice, minPrice, page, limit } = req.query;
 
-    const result = await gearService.getAllGearInDB()
+    const result = await gearService.getAllGearInDB(categoryId as string, brand as string, maxPrice as string, minPrice as string, page as string, limit as string)
 
     sendResponse(res, {
         success: true,
         statusCode: HttpStatus.OK,
         message: "all gear retrieve success",
-        data: result
+        data: result.data,
+        metaData: result.meta
     })
 
 })
@@ -75,4 +77,4 @@ const deleteGear = catchAsync(async (req: Request, res: Response) => {
 })
 
 
-export const gearController = { getAllGear, getGearDetails, createGear, gearUpdate ,deleteGear}
+export const gearController = { getAllGear, getGearDetails, createGear, gearUpdate, deleteGear }

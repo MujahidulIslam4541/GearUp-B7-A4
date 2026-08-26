@@ -1,3 +1,4 @@
+import type { Prisma } from "../../../prisma/generated/prisma/browser";
 import { AppError } from "../../error/AppError";
 import { prisma } from "../../lib"
 import type { TCreateGearInput, TUpdateGearInput } from "../../schemaValidation/gearValidation"
@@ -15,8 +16,49 @@ const createGear = async (providerId: string, payload: TCreateGearInput) => {
 }
 
 
-const getAllGearInDB = async () => {
+const getAllGearInDB = async (categoryId: string, brand: string, maxPrice: string, minPrice: String, page: string, limit: string) => {
+
+    const andConditions: Prisma.GearItemWhereInput[] = []
+
+    if (categoryId) {
+        andConditions.push({
+            category: {
+                id: categoryId as string
+            }
+        })
+    }
+
+    if (brand) {
+        andConditions.push({
+            brand: {
+                equals: brand as string,
+                mode: "insensitive"
+            }
+        })
+    }
+
+    if (minPrice || maxPrice) {
+        andConditions.push({
+            price: {
+                ...(minPrice && { gte: Number(minPrice) }),
+                ...(maxPrice && { lte: Number(maxPrice) })
+            }
+        });
+    }
+
+    const whereConditions: Prisma.GearItemWhereInput =
+        andConditions.length > 0 ? { AND: andConditions } : {};
+
+    // pagination calculation
+    const pageNumber = Number(page) || 1;
+    const limitNumber = Number(limit) || 10;
+    const skip = (pageNumber - 1) * limitNumber;
+
+
     const result = await prisma.gearItem.findMany({
+        where: whereConditions,
+        skip,
+        take: limitNumber,
         include: {
             provider: {
                 select: {
@@ -30,8 +72,20 @@ const getAllGearInDB = async () => {
                 }
             }
         }
-    })
-    return result;
+    });
+
+    const total = await prisma.gearItem.count({
+        where: whereConditions
+    });
+
+    return {
+        meta: {
+            page: pageNumber,
+            limit: limitNumber,
+            totalPage: Math.ceil(total / limitNumber)
+        },
+        data: result
+    };
 
 }
 
@@ -109,4 +163,4 @@ const deleteGear = async (gearId: string, providerId: string) => {
 
 
 
-export const gearService = { getAllGearInDB, getGearDetailsInDB, createGear, gearUpdate,deleteGear }
+export const gearService = { getAllGearInDB, getGearDetailsInDB, createGear, gearUpdate, deleteGear }
