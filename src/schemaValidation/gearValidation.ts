@@ -8,7 +8,11 @@ export const createGearValidation = z.object({
     brand: z.string().max(255).optional(),
     quantity: z.number().int().min(0).default(0),
     categoryId: z.string().uuid(),
-});
+}).strict();
 
-// type infer from zod schema
+export const updateGearValidation = createGearValidation
+    .partial()
+    .strict();
+
 export type TCreateGearInput = z.infer<typeof createGearValidation>;
+export type TUpdateGearInput = z.infer<typeof updateGearValidation>;

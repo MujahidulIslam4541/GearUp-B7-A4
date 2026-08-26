@@ -45,5 +45,21 @@ const getGearDetails = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const gearUpdate = catchAsync(async (req: Request, res: Response) => {
+    const gearId = req.params.id;
+    const providerId = req.user?.id;
+    const payload = req.body;
 
-export const gearController = { getAllGear, getGearDetails ,createGear}
+    const result = await gearService.gearUpdate(gearId as string, providerId as string, payload)
+
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: "your gear updated success",
+        data: result
+    })
+})
+
+
+export const gearController = { getAllGear, getGearDetails, createGear,gearUpdate }
