@@ -7,6 +7,7 @@ import { gearRoutes } from "./modules/gear/gear.routes";
 import { authRoutes } from "./modules/auth/auth.routes";
 import { categoryRoutes } from "./modules/category/category.routes";
 import { adminRoutes } from "./modules/admin/admin.routes";
+import { orderRoutes } from "./modules/rentalOrder/rental.routes";
 
 
 
@@ -29,8 +30,9 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/auth", authRoutes)
 app.use("/api/gear", gearRoutes)
-app.use("/api/category",categoryRoutes)
-app.use("/api/admin",adminRoutes)
+app.use("/api/category", categoryRoutes)
+app.use("/api/admin", adminRoutes)
+app.use("/api/order", orderRoutes)
 
 
 export default app;
