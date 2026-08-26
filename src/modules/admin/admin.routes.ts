@@ -5,6 +5,7 @@ import { UserRole } from "../../../prisma/generated/prisma/enums";
 
 const router = Router()
 
-router.get('/', authMiddlewares(UserRole.ADMIN), adminController.getAllUsers)
+router.get('/users', authMiddlewares(UserRole.ADMIN), adminController.getAllUsers)
+router.patch("/user/:id",authMiddlewares(UserRole.ADMIN), adminController.updateUserRole)
 
 export const adminRoutes = router;
