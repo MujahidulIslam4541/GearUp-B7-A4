@@ -61,5 +61,18 @@ const gearUpdate = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const deleteGear = catchAsync(async (req: Request, res: Response) => {
+    const gearId = req.params.id;
+    const providerId = req.user?.id;
 
-export const gearController = { getAllGear, getGearDetails, createGear,gearUpdate }
+    await gearService.deleteGear(gearId as string, providerId as string)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: "your gear deleted successfully"
+    })
+})
+
+
+export const gearController = { getAllGear, getGearDetails, createGear, gearUpdate ,deleteGear}

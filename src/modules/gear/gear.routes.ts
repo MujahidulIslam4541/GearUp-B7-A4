@@ -14,4 +14,6 @@ router.get("/:id", gearController.getGearDetails)
 
 router.put("/update/:id", validateRequest(updateGearValidation), authMiddlewares(UserRole.PROVIDER), gearController.gearUpdate)
 
+router.delete("/delete/:id", authMiddlewares(UserRole.PROVIDER), gearController.deleteGear)
+
 export const gearRoutes = router;

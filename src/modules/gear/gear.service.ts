@@ -69,7 +69,7 @@ const gearUpdate = async (gearId: string, providerId: string, payload: TUpdateGe
     if (!gear) {
         throw new AppError(HttpStatus.NOT_FOUND, "gear not found")
     }
-    
+
     if (gear.providerId !== providerId) {
         throw new AppError(HttpStatus.FORBIDDEN, "your are not authorized for this gear update")
     }
@@ -83,6 +83,30 @@ const gearUpdate = async (gearId: string, providerId: string, payload: TUpdateGe
 
 }
 
+const deleteGear = async (gearId: string, providerId: string) => {
+    const gear = await prisma.gearItem.findUnique({
+        where: {
+            id: gearId
+        }
+    })
+
+    if (!gear) {
+        throw new AppError(HttpStatus.BAD_REQUEST, "not find gear")
+    }
+
+    if (gear.providerId !== providerId) {
+        throw new AppError(HttpStatus.BAD_REQUEST, "you can't delete this gear")
+    }
+
+    const result = await prisma.gearItem.delete({
+        where: {
+            id: gearId
+        }
+    })
+
+    return result;
+}
 
 
-export const gearService = { getAllGearInDB, getGearDetailsInDB, createGear, gearUpdate }
+
+export const gearService = { getAllGearInDB, getGearDetailsInDB, createGear, gearUpdate,deleteGear }
