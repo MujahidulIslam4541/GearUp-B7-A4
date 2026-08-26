@@ -5,9 +5,10 @@ import { sendResponse } from "../../utils/sendResponse";
 import HttpStatus from "http-status";
 
 const createOrder = catchAsync(async (req: Request, res: Response) => {
-    const { payload } = req.body;
+    const customerId = req.user?.id;
+    const payload = req.body;
 
-    const result = await rentalOrderService.createOrder(payload)
+    const result = await rentalOrderService.createOrder(customerId as string, payload)
 
     sendResponse(res, {
         success: true,
