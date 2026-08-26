@@ -21,8 +21,9 @@ const createOrder = catchAsync(async (req: Request, res: Response) => {
 
 
 const getOrders = catchAsync(async (req: Request, res: Response) => {
+    const customerId = req.user?.id;
 
-    const result = await rentalOrderService.getOrders()
+    const result = await rentalOrderService.getOrders(customerId as string)
 
     sendResponse(res, {
         success: true,

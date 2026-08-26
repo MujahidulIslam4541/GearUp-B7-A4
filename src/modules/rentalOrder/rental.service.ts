@@ -47,11 +47,32 @@ const createOrder = async (customerId: string, payload: TOrderValidation) => {
 
 }
 
-const getOrders = async () => {
+const getOrders = async (customerId: string) => {
+    const order = await prisma.rentalOrder.findMany({
+        where: {
+            customerId
+        },
+        include: {
+            gearItem: {
+                select: {
+                    name: true, imageUrl: true, brand: true
+                }
+            }
+        }
+    })
 
+    return order;
 }
 
 const getOrderDetails = async (orderId: string) => {
+
+    const result = await prisma.rentalOrder.findUnique({
+        where: {
+            id: orderId
+        }
+    })
+
+    return result;
 
 }
 
