@@ -5,6 +5,20 @@ import HttpStatus from "http-status";
 import { gearService } from "./gear.service";
 
 
+const createGear = catchAsync(async (req: Request, res: Response) => {
+    const providerId = req.user?.id;
+    const payload = req.body;
+
+    const result = await gearService.createGear(providerId as string, payload)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.CREATED,
+        message: "Created your gear",
+        data: result
+    })
+})
+
 
 const getAllGear = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
@@ -32,4 +46,4 @@ const getSingleGear = catchAsync(async (req: Request, res: Response) => {
 })
 
 
-export const gearController = { getAllGear, getSingleGear }
+export const gearController = { getAllGear, getSingleGear ,createGear}
