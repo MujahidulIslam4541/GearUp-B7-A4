@@ -34,4 +34,36 @@ const updateUserRole = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
-export const adminController = { getAllUsers, updateUserRole }
+const getAllGearForAdmin = catchAsync(async (req: Request, res: Response) => {
+    const { limit, page } = req.query;
+
+    const result = await adminService.getAllGearForAdmin(limit as string, page as string)
+
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: "get all users retrieve success",
+        data: result.data,
+        metaData: result.meta
+    })
+
+})
+
+const getAllOrdersForAdmin = catchAsync(async (req: Request, res: Response) => {
+    const { limit, page } = req.query;
+
+    const result = await adminService.getOrdersForAdmin(limit as string, page as string)
+
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: "get all users retrieve success",
+        data: result.data,
+        metaData: result.meta
+    })
+
+})
+
+export const adminController = { getAllUsers, updateUserRole, getAllGearForAdmin, getAllOrdersForAdmin }

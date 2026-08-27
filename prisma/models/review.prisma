@@ -11,6 +11,9 @@ model Review {
     gearItemId String
     gearItem   GearItem @relation(fields: [gearItemId], references: [id])
 
+    rentalOrderId String      @unique
+    rentalOrder   RentalOrder @relation(fields: [rentalOrderId], references: [id])
+
     @@index([userId])
     @@index([gearItemId])
     @@map("reviews")
