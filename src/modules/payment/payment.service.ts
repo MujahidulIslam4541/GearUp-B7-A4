@@ -50,7 +50,7 @@ const createPaymentSession = async (customerId: string, orderId: string) => {
     await prisma.payment.create({
         data: {
             amount: order.totalAmount,
-            status: PaymentStatus.PENDING,      
+            status: PaymentStatus.PENDING,
             stripeSessionId: session.id,
             rentalOrderId: order.id
         }
@@ -62,15 +62,16 @@ const createPaymentSession = async (customerId: string, orderId: string) => {
 
 const confirmPayment = async (rawBody: Buffer, signature: string) => {
 
-    let event;
+    let event: Stripe.Event;
 
     try {
-        event = stripe.webhooks.constructEvent(
+        event = await stripe.webhooks.constructEventAsync(
             rawBody,
             signature,
-            process.env.STRIPE_WEBHOOK_SECRET as string
+            config.stripe_webhook_secret as string
         );
     } catch (err) {
+        console.log("invalid webhook error", err)
         throw new AppError(HttpStatus.BAD_REQUEST, "Invalid webhook signature");
     }
 
@@ -83,14 +84,14 @@ const confirmPayment = async (rawBody: Buffer, signature: string) => {
         await prisma.payment.update({
             where: { stripeSessionId: session.id },
             data: {
-                status: PaymentStatus.COMPLETED,  
+                status: PaymentStatus.COMPLETED,
                 stripePaymentIntentId: session.payment_intent as string
             }
         });
 
         await prisma.rentalOrder.update({
             where: { id: orderId },
-            data: { status: RentalStatus.PAID }    
+            data: { status: RentalStatus.PAID }
         });
     }
     if (event.type === "checkout.session.expired" || event.type === "payment_intent.payment_failed") {
@@ -98,11 +99,50 @@ const confirmPayment = async (rawBody: Buffer, signature: string) => {
 
         await prisma.payment.updateMany({
             where: { stripeSessionId: session.id },
-            data: { status: PaymentStatus.FAILED }  
+            data: { status: PaymentStatus.FAILED }
         });
     }
 
     return { received: true };
 };
 
-export const paymentService = { createPaymentSession, confirmPayment };
+
+const getMyPayments = async (customerId: string) => {
+    const result = await prisma.payment.findMany({
+        where: {
+            rentalOrder: {
+                customerId: customerId
+            }
+        },
+        include: {
+            rentalOrder: {
+                select: {
+                    gearItem: { select: { name: true } },
+                    rentalDate: true,
+                    returnDate: true
+                }
+            }
+        },
+        orderBy: { createdAt: "desc" }
+    });
+    return result;
+};
+
+const getPaymentDetails = async (customerId: string, paymentId: string) => {
+    const result = await prisma.payment.findUnique({
+        where: { id: paymentId },
+        include: { rentalOrder: true }
+    });
+
+    if (!result) {
+        throw new AppError(HttpStatus.NOT_FOUND, "payment not found");
+    }
+
+    if (result.rentalOrder.customerId !== customerId) {
+        throw new AppError(HttpStatus.FORBIDDEN, "you can only view your own payments");
+    }
+
+    return result;
+};
+
+export const paymentService = { createPaymentSession, confirmPayment, getMyPayments, getPaymentDetails };

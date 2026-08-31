@@ -26,5 +26,30 @@ const confirmPayment = catchAsync(async (req: Request, res: Response) => {
     res.status(HttpStatus.OK).json(result);
 });
 
+const getMyPayments = catchAsync(async (req: Request, res: Response) => {
+    const customerId = req.user?.id;
+    const result = await paymentService.getMyPayments(customerId as string)
 
-export const paymentController = { createPaymentSession, confirmPayment }
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: "my all payments retrieve success",
+        data: result
+    })
+})
+
+
+const getPaymentDetails = catchAsync(async (req: Request, res: Response) => {
+    const customerId = req.user?.id;
+    const paymentId = req.params.id;
+    const result = await paymentService.getPaymentDetails(customerId as string, paymentId as string)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: HttpStatus.OK,
+        message: "my all payments retrieve success",
+        data: result
+    })
+})
+
+export const paymentController = { createPaymentSession, confirmPayment, getMyPayments, getPaymentDetails }
