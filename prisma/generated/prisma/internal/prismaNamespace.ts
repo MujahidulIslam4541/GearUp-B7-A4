@@ -950,7 +950,9 @@ export const RentalOrderScalarFieldEnum = {
   totalAmount: 'totalAmount',
   status: 'status',
   customerId: 'customerId',
-  gearItemId: 'gearItemId'
+  gearItemId: 'gearItemId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type RentalOrderScalarFieldEnum = (typeof RentalOrderScalarFieldEnum)[keyof typeof RentalOrderScalarFieldEnum]

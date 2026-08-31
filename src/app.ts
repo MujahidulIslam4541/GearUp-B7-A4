@@ -11,6 +11,7 @@ import { orderRoutes } from "./modules/rentalOrder/rental.routes";
 import { reviewRoutes } from "./modules/review/review.routes";
 import { errorHandler } from "./error/GlobalErrorHandler";
 import { notFound } from "./middlewares/NotFound";
+import { providerRoutes } from "./modules/provider/provider.routes";
 
 
 
@@ -37,6 +38,7 @@ app.use("/api/category", categoryRoutes)
 app.use("/api/admin", adminRoutes)
 app.use("/api/order", orderRoutes)
 app.use("/api",reviewRoutes)
+app.use("/api/provider",providerRoutes)
 
 app.use(errorHandler)
 app.use(notFound)
