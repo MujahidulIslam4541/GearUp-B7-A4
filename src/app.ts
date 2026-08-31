@@ -9,6 +9,8 @@ import { categoryRoutes } from "./modules/category/category.routes";
 import { adminRoutes } from "./modules/admin/admin.routes";
 import { orderRoutes } from "./modules/rentalOrder/rental.routes";
 import { reviewRoutes } from "./modules/review/review.routes";
+import { errorHandler } from "./error/GlobalErrorHandler";
+import { notFound } from "./middlewares/NotFound";
 
 
 
@@ -35,6 +37,9 @@ app.use("/api/category", categoryRoutes)
 app.use("/api/admin", adminRoutes)
 app.use("/api/order", orderRoutes)
 app.use("/api",reviewRoutes)
+
+app.use(errorHandler)
+app.use(notFound)
 
 
 export default app;
