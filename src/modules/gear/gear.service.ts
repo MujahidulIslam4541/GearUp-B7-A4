@@ -16,7 +16,7 @@ const createGear = async (providerId: string, payload: TCreateGearInput) => {
 }
 
 
-const getAllGearInDB = async (categoryId: string, brand: string, maxPrice: string, minPrice: String, page: string, limit: string) => {
+const getAllGearInDB = async (categoryId: string, brand: string, maxPrice: string, minPrice: string, search: string, page: string, limit: string) => {
 
     const andConditions: Prisma.GearItemWhereInput[] = []
 
@@ -43,6 +43,25 @@ const getAllGearInDB = async (categoryId: string, brand: string, maxPrice: strin
                 ...(minPrice && { gte: Number(minPrice) }),
                 ...(maxPrice && { lte: Number(maxPrice) })
             }
+        });
+    }
+
+    if (search) {
+        andConditions.push({
+            OR: [
+                {
+                    name: {
+                        contains: search,
+                        mode: "insensitive"
+                    }
+                },
+                {
+                    description: {
+                        contains: search,
+                        mode: "insensitive"
+                    }
+                }
+            ]
         });
     }
 

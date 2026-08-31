@@ -5,7 +5,8 @@ import { AppError } from "../../error/AppError";
 
 const VALID_PROVIDER_TRANSITIONS: Record<string, string[]> = {
     PLACED: ["CONFIRMED", "CANCELLED"],
-    CONFIRMED: ["PICKED_UP", "CANCELLED"],
+    CONFIRMED: ["PAID", "CANCELLED"],
+    PAID: ["PICKED_UP", "CANCELLED"],
     PICKED_UP: ["RETURNED"],
 };
 

@@ -7,7 +7,7 @@ import { adminService } from "./admin.service";
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
     const { limit, page } = req.query;
 
-    const result = await adminService.getAllUsers(limit as string, page as string)
+    const result = await adminService.getAllUsers(page as string, limit as string)
 
 
     sendResponse(res, {

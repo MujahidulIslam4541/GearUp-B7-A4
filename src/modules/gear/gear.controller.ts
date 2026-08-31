@@ -21,9 +21,9 @@ const createGear = catchAsync(async (req: Request, res: Response) => {
 
 
 const getAllGear = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const { categoryId, brand, maxPrice, minPrice, page, limit } = req.query;
+    const { categoryId, brand, maxPrice, minPrice,search, page, limit } = req.query;
 
-    const result = await gearService.getAllGearInDB(categoryId as string, brand as string, maxPrice as string, minPrice as string, page as string, limit as string)
+    const result = await gearService.getAllGearInDB(categoryId as string, brand as string, maxPrice as string, minPrice as string,search as string, page as string, limit as string)
 
     sendResponse(res, {
         success: true,
