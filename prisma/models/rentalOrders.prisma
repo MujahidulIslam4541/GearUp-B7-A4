@@ -13,6 +13,7 @@ model RentalOrder {
    updatedAt DateTime @default(now()) @updatedAt
 
     review Review?
+      payment Payment?
 
     @@index([customerId])
     @@index([gearItemId])

@@ -1,8 +1,16 @@
-model Payment{
-    id        String     @id @default(uuid())
+model Payment {
+    id        String        @id @default(uuid())
     amount    Float
     status    PaymentStatus @default(PENDING)
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
-}
+    createdAt DateTime      @default(now())
+    updatedAt DateTime      @updatedAt
 
+    stripeSessionId       String? @unique
+    stripePaymentIntentId String? @unique
+
+    // relation
+    rentalOrderId String      @unique
+    rentalOrder   RentalOrder @relation(fields: [rentalOrderId], references: [id])
+
+    @@map("payments")
+}

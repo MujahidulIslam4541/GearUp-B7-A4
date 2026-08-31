@@ -40,6 +40,9 @@ export type PaymentMinAggregateOutputType = {
   status: $Enums.PaymentStatus | null
   createdAt: Date | null
   updatedAt: Date | null
+  stripeSessionId: string | null
+  stripePaymentIntentId: string | null
+  rentalOrderId: string | null
 }
 
 export type PaymentMaxAggregateOutputType = {
@@ -48,6 +51,9 @@ export type PaymentMaxAggregateOutputType = {
   status: $Enums.PaymentStatus | null
   createdAt: Date | null
   updatedAt: Date | null
+  stripeSessionId: string | null
+  stripePaymentIntentId: string | null
+  rentalOrderId: string | null
 }
 
 export type PaymentCountAggregateOutputType = {
@@ -56,6 +62,9 @@ export type PaymentCountAggregateOutputType = {
   status: number
   createdAt: number
   updatedAt: number
+  stripeSessionId: number
+  stripePaymentIntentId: number
+  rentalOrderId: number
   _all: number
 }
 
@@ -74,6 +83,9 @@ export type PaymentMinAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  stripeSessionId?: true
+  stripePaymentIntentId?: true
+  rentalOrderId?: true
 }
 
 export type PaymentMaxAggregateInputType = {
@@ -82,6 +94,9 @@ export type PaymentMaxAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  stripeSessionId?: true
+  stripePaymentIntentId?: true
+  rentalOrderId?: true
 }
 
 export type PaymentCountAggregateInputType = {
@@ -90,6 +105,9 @@ export type PaymentCountAggregateInputType = {
   status?: true
   createdAt?: true
   updatedAt?: true
+  stripeSessionId?: true
+  stripePaymentIntentId?: true
+  rentalOrderId?: true
   _all?: true
 }
 
@@ -185,6 +203,9 @@ export type PaymentGroupByOutputType = {
   status: $Enums.PaymentStatus
   createdAt: Date
   updatedAt: Date
+  stripeSessionId: string | null
+  stripePaymentIntentId: string | null
+  rentalOrderId: string
   _count: PaymentCountAggregateOutputType | null
   _avg: PaymentAvgAggregateOutputType | null
   _sum: PaymentSumAggregateOutputType | null
@@ -216,6 +237,10 @@ export type PaymentWhereInput = {
   status?: Prisma.EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
+  stripeSessionId?: Prisma.StringNullableFilter<"Payment"> | string | null
+  stripePaymentIntentId?: Prisma.StringNullableFilter<"Payment"> | string | null
+  rentalOrderId?: Prisma.StringFilter<"Payment"> | string
+  rentalOrder?: Prisma.XOR<Prisma.RentalOrderScalarRelationFilter, Prisma.RentalOrderWhereInput>
 }
 
 export type PaymentOrderByWithRelationInput = {
@@ -224,10 +249,17 @@ export type PaymentOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  stripeSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  stripePaymentIntentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalOrderId?: Prisma.SortOrder
+  rentalOrder?: Prisma.RentalOrderOrderByWithRelationInput
 }
 
 export type PaymentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  stripeSessionId?: string
+  stripePaymentIntentId?: string
+  rentalOrderId?: string
   AND?: Prisma.PaymentWhereInput | Prisma.PaymentWhereInput[]
   OR?: Prisma.PaymentWhereInput[]
   NOT?: Prisma.PaymentWhereInput | Prisma.PaymentWhereInput[]
@@ -235,7 +267,8 @@ export type PaymentWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
-}, "id">
+  rentalOrder?: Prisma.XOR<Prisma.RentalOrderScalarRelationFilter, Prisma.RentalOrderWhereInput>
+}, "id" | "stripeSessionId" | "stripePaymentIntentId" | "rentalOrderId">
 
 export type PaymentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -243,6 +276,9 @@ export type PaymentOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  stripeSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  stripePaymentIntentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalOrderId?: Prisma.SortOrder
   _count?: Prisma.PaymentCountOrderByAggregateInput
   _avg?: Prisma.PaymentAvgOrderByAggregateInput
   _max?: Prisma.PaymentMaxOrderByAggregateInput
@@ -259,6 +295,9 @@ export type PaymentScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumPaymentStatusWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Payment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Payment"> | Date | string
+  stripeSessionId?: Prisma.StringNullableWithAggregatesFilter<"Payment"> | string | null
+  stripePaymentIntentId?: Prisma.StringNullableWithAggregatesFilter<"Payment"> | string | null
+  rentalOrderId?: Prisma.StringWithAggregatesFilter<"Payment"> | string
 }
 
 export type PaymentCreateInput = {
@@ -267,6 +306,9 @@ export type PaymentCreateInput = {
   status?: $Enums.PaymentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  stripeSessionId?: string | null
+  stripePaymentIntentId?: string | null
+  rentalOrder: Prisma.RentalOrderCreateNestedOneWithoutPaymentInput
 }
 
 export type PaymentUncheckedCreateInput = {
@@ -275,6 +317,9 @@ export type PaymentUncheckedCreateInput = {
   status?: $Enums.PaymentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  stripeSessionId?: string | null
+  stripePaymentIntentId?: string | null
+  rentalOrderId: string
 }
 
 export type PaymentUpdateInput = {
@@ -283,6 +328,9 @@ export type PaymentUpdateInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stripeSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalOrder?: Prisma.RentalOrderUpdateOneRequiredWithoutPaymentNestedInput
 }
 
 export type PaymentUncheckedUpdateInput = {
@@ -291,6 +339,9 @@ export type PaymentUncheckedUpdateInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stripeSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalOrderId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PaymentCreateManyInput = {
@@ -299,6 +350,9 @@ export type PaymentCreateManyInput = {
   status?: $Enums.PaymentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  stripeSessionId?: string | null
+  stripePaymentIntentId?: string | null
+  rentalOrderId: string
 }
 
 export type PaymentUpdateManyMutationInput = {
@@ -307,6 +361,8 @@ export type PaymentUpdateManyMutationInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stripeSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PaymentUncheckedUpdateManyInput = {
@@ -315,6 +371,9 @@ export type PaymentUncheckedUpdateManyInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stripeSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalOrderId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PaymentCountOrderByAggregateInput = {
@@ -323,6 +382,9 @@ export type PaymentCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  stripeSessionId?: Prisma.SortOrder
+  stripePaymentIntentId?: Prisma.SortOrder
+  rentalOrderId?: Prisma.SortOrder
 }
 
 export type PaymentAvgOrderByAggregateInput = {
@@ -335,6 +397,9 @@ export type PaymentMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  stripeSessionId?: Prisma.SortOrder
+  stripePaymentIntentId?: Prisma.SortOrder
+  rentalOrderId?: Prisma.SortOrder
 }
 
 export type PaymentMinOrderByAggregateInput = {
@@ -343,10 +408,18 @@ export type PaymentMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  stripeSessionId?: Prisma.SortOrder
+  stripePaymentIntentId?: Prisma.SortOrder
+  rentalOrderId?: Prisma.SortOrder
 }
 
 export type PaymentSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+}
+
+export type PaymentNullableScalarRelationFilter = {
+  is?: Prisma.PaymentWhereInput | null
+  isNot?: Prisma.PaymentWhereInput | null
 }
 
 export type FloatFieldUpdateOperationsInput = {
@@ -361,6 +434,94 @@ export type EnumPaymentStatusFieldUpdateOperationsInput = {
   set?: $Enums.PaymentStatus
 }
 
+export type PaymentCreateNestedOneWithoutRentalOrderInput = {
+  create?: Prisma.XOR<Prisma.PaymentCreateWithoutRentalOrderInput, Prisma.PaymentUncheckedCreateWithoutRentalOrderInput>
+  connectOrCreate?: Prisma.PaymentCreateOrConnectWithoutRentalOrderInput
+  connect?: Prisma.PaymentWhereUniqueInput
+}
+
+export type PaymentUncheckedCreateNestedOneWithoutRentalOrderInput = {
+  create?: Prisma.XOR<Prisma.PaymentCreateWithoutRentalOrderInput, Prisma.PaymentUncheckedCreateWithoutRentalOrderInput>
+  connectOrCreate?: Prisma.PaymentCreateOrConnectWithoutRentalOrderInput
+  connect?: Prisma.PaymentWhereUniqueInput
+}
+
+export type PaymentUpdateOneWithoutRentalOrderNestedInput = {
+  create?: Prisma.XOR<Prisma.PaymentCreateWithoutRentalOrderInput, Prisma.PaymentUncheckedCreateWithoutRentalOrderInput>
+  connectOrCreate?: Prisma.PaymentCreateOrConnectWithoutRentalOrderInput
+  upsert?: Prisma.PaymentUpsertWithoutRentalOrderInput
+  disconnect?: Prisma.PaymentWhereInput | boolean
+  delete?: Prisma.PaymentWhereInput | boolean
+  connect?: Prisma.PaymentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PaymentUpdateToOneWithWhereWithoutRentalOrderInput, Prisma.PaymentUpdateWithoutRentalOrderInput>, Prisma.PaymentUncheckedUpdateWithoutRentalOrderInput>
+}
+
+export type PaymentUncheckedUpdateOneWithoutRentalOrderNestedInput = {
+  create?: Prisma.XOR<Prisma.PaymentCreateWithoutRentalOrderInput, Prisma.PaymentUncheckedCreateWithoutRentalOrderInput>
+  connectOrCreate?: Prisma.PaymentCreateOrConnectWithoutRentalOrderInput
+  upsert?: Prisma.PaymentUpsertWithoutRentalOrderInput
+  disconnect?: Prisma.PaymentWhereInput | boolean
+  delete?: Prisma.PaymentWhereInput | boolean
+  connect?: Prisma.PaymentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PaymentUpdateToOneWithWhereWithoutRentalOrderInput, Prisma.PaymentUpdateWithoutRentalOrderInput>, Prisma.PaymentUncheckedUpdateWithoutRentalOrderInput>
+}
+
+export type PaymentCreateWithoutRentalOrderInput = {
+  id?: string
+  amount: number
+  status?: $Enums.PaymentStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  stripeSessionId?: string | null
+  stripePaymentIntentId?: string | null
+}
+
+export type PaymentUncheckedCreateWithoutRentalOrderInput = {
+  id?: string
+  amount: number
+  status?: $Enums.PaymentStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  stripeSessionId?: string | null
+  stripePaymentIntentId?: string | null
+}
+
+export type PaymentCreateOrConnectWithoutRentalOrderInput = {
+  where: Prisma.PaymentWhereUniqueInput
+  create: Prisma.XOR<Prisma.PaymentCreateWithoutRentalOrderInput, Prisma.PaymentUncheckedCreateWithoutRentalOrderInput>
+}
+
+export type PaymentUpsertWithoutRentalOrderInput = {
+  update: Prisma.XOR<Prisma.PaymentUpdateWithoutRentalOrderInput, Prisma.PaymentUncheckedUpdateWithoutRentalOrderInput>
+  create: Prisma.XOR<Prisma.PaymentCreateWithoutRentalOrderInput, Prisma.PaymentUncheckedCreateWithoutRentalOrderInput>
+  where?: Prisma.PaymentWhereInput
+}
+
+export type PaymentUpdateToOneWithWhereWithoutRentalOrderInput = {
+  where?: Prisma.PaymentWhereInput
+  data: Prisma.XOR<Prisma.PaymentUpdateWithoutRentalOrderInput, Prisma.PaymentUncheckedUpdateWithoutRentalOrderInput>
+}
+
+export type PaymentUpdateWithoutRentalOrderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stripeSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type PaymentUncheckedUpdateWithoutRentalOrderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.FloatFieldUpdateOperationsInput | number
+  status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stripeSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 
 
 export type PaymentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -369,6 +530,10 @@ export type PaymentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  stripeSessionId?: boolean
+  stripePaymentIntentId?: boolean
+  rentalOrderId?: boolean
+  rentalOrder?: boolean | Prisma.RentalOrderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payment"]>
 
 export type PaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -377,6 +542,10 @@ export type PaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  stripeSessionId?: boolean
+  stripePaymentIntentId?: boolean
+  rentalOrderId?: boolean
+  rentalOrder?: boolean | Prisma.RentalOrderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payment"]>
 
 export type PaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -385,6 +554,10 @@ export type PaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  stripeSessionId?: boolean
+  stripePaymentIntentId?: boolean
+  rentalOrderId?: boolean
+  rentalOrder?: boolean | Prisma.RentalOrderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["payment"]>
 
 export type PaymentSelectScalar = {
@@ -393,19 +566,36 @@ export type PaymentSelectScalar = {
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  stripeSessionId?: boolean
+  stripePaymentIntentId?: boolean
+  rentalOrderId?: boolean
 }
 
-export type PaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "amount" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["payment"]>
+export type PaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "amount" | "status" | "createdAt" | "updatedAt" | "stripeSessionId" | "stripePaymentIntentId" | "rentalOrderId", ExtArgs["result"]["payment"]>
+export type PaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  rentalOrder?: boolean | Prisma.RentalOrderDefaultArgs<ExtArgs>
+}
+export type PaymentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  rentalOrder?: boolean | Prisma.RentalOrderDefaultArgs<ExtArgs>
+}
+export type PaymentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  rentalOrder?: boolean | Prisma.RentalOrderDefaultArgs<ExtArgs>
+}
 
 export type $PaymentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Payment"
-  objects: {}
+  objects: {
+    rentalOrder: Prisma.$RentalOrderPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     amount: number
     status: $Enums.PaymentStatus
     createdAt: Date
     updatedAt: Date
+    stripeSessionId: string | null
+    stripePaymentIntentId: string | null
+    rentalOrderId: string
   }, ExtArgs["result"]["payment"]>
   composites: {}
 }
@@ -800,6 +990,7 @@ readonly fields: PaymentFieldRefs;
  */
 export interface Prisma__PaymentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  rentalOrder<T extends Prisma.RentalOrderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RentalOrderDefaultArgs<ExtArgs>>): Prisma.Prisma__RentalOrderClient<runtime.Types.Result.GetResult<Prisma.$RentalOrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -834,6 +1025,9 @@ export interface PaymentFieldRefs {
   readonly status: Prisma.FieldRef<"Payment", 'PaymentStatus'>
   readonly createdAt: Prisma.FieldRef<"Payment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Payment", 'DateTime'>
+  readonly stripeSessionId: Prisma.FieldRef<"Payment", 'String'>
+  readonly stripePaymentIntentId: Prisma.FieldRef<"Payment", 'String'>
+  readonly rentalOrderId: Prisma.FieldRef<"Payment", 'String'>
 }
     
 
@@ -850,6 +1044,10 @@ export type PaymentFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Payment
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
   /**
    * Filter, which Payment to fetch.
    */
@@ -869,6 +1067,10 @@ export type PaymentFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  /**
    * Filter, which Payment to fetch.
    */
   where: Prisma.PaymentWhereUniqueInput
@@ -886,6 +1088,10 @@ export type PaymentFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Payment
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
   /**
    * Filter, which Payment to fetch.
    */
@@ -935,6 +1141,10 @@ export type PaymentFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  /**
    * Filter, which Payment to fetch.
    */
   where?: Prisma.PaymentWhereInput
@@ -982,6 +1192,10 @@ export type PaymentFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Payment
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
   /**
    * Filter, which Payments to fetch.
    */
@@ -1031,6 +1245,10 @@ export type PaymentCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  /**
    * The data needed to create a Payment.
    */
   data: Prisma.XOR<Prisma.PaymentCreateInput, Prisma.PaymentUncheckedCreateInput>
@@ -1064,6 +1282,10 @@ export type PaymentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    */
   data: Prisma.PaymentCreateManyInput | Prisma.PaymentCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1078,6 +1300,10 @@ export type PaymentUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Payment
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
   /**
    * The data needed to update a Payment.
    */
@@ -1130,6 +1356,10 @@ export type PaymentUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many Payments to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1144,6 +1374,10 @@ export type PaymentUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Payment
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
   /**
    * The filter to search for the Payment to update in case it exists.
    */
@@ -1170,6 +1404,10 @@ export type PaymentDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Payment
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
   /**
    * Filter which Payment to delete.
    */
@@ -1202,4 +1440,8 @@ export type PaymentDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Payment
    */
   omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
 }

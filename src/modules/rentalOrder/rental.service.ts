@@ -32,19 +32,28 @@ const createOrder = async (customerId: string, payload: TOrderValidation) => {
     const totalAmount = days * Number(gear.price)
 
 
-    const result = await prisma.rentalOrder.create({
-        data: {
-            rentalDate: startDate,
-            returnDate: endDate,
-            totalAmount,
-            customerId,
-            gearItemId: gear.id
-        }
+    const result = await prisma.$transaction(async (tx) => {
+        const order = await tx.rentalOrder.create({
+            data: {
+                rentalDate: startDate,
+                returnDate: endDate,
+                totalAmount,
+                customerId,
+                gearItemId: gear.id
+            }
+        });
+
+        await tx.gearItem.update({
+            where: { id: gear.id },
+            data: {
+                quantity: { decrement: 1 }
+            }
+        });
+
+        return order;
     });
 
     return result;
-
-
 }
 
 const getOrders = async (customerId: string) => {
