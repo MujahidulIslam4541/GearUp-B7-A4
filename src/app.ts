@@ -12,10 +12,20 @@ import { reviewRoutes } from "./modules/review/review.routes";
 import { errorHandler } from "./error/GlobalErrorHandler";
 import { notFound } from "./middlewares/NotFound";
 import { providerRoutes } from "./modules/provider/provider.routes";
+import { paymentController } from "./modules/payment/payment.controller";
+import { paymentRoutes } from "./modules/payment/payment.routes";
 
 
 
 const app: Application = express();
+
+
+// app.ts
+app.post(
+    "/api/payments/confirm",
+    express.raw({ type: "application/json" }), 
+    paymentController.confirmPayment
+);
 
 app.use(
     cors({
@@ -39,6 +49,7 @@ app.use("/api/admin", adminRoutes)
 app.use("/api/order", orderRoutes)
 app.use("/api",reviewRoutes)
 app.use("/api/provider",providerRoutes)
+app.use("/api/payments", paymentRoutes) 
 
 app.use(errorHandler)
 app.use(notFound)

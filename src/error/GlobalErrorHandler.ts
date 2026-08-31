@@ -9,8 +9,12 @@ export const errorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
+
+
   let statusCode: number = HttpsStatus.INTERNAL_SERVER_ERROR;
   let errorMessage = error.message;
+
+
 
   if (error instanceof ZodError) {
     statusCode = HttpsStatus.BAD_REQUEST;
